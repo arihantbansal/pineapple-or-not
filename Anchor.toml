@@ -2,7 +2,7 @@
 seeds = false
 skip-lint = false
 [programs.localnet]
-pineapple_or_not = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+pineapple_or_not = "4cnMefx5UmwwW6yCJYMoLAGzQy8XVq7AQRKqFsP7aajh"
 
 [registry]
 url = "https://api.apr.dev"

@@ -14,14 +14,12 @@ pub mod pineapple_or_not {
     }
 
     pub fn vote_yes(ctx: Context<Vote>) -> Result<()> {
-        let vote_account = &mut ctx.accounts.vote_account;
-        vote_account.yes += 1;
+        ctx.accounts.vote_account.yes += 1;
         Ok(())
     }
 
     pub fn vote_no(ctx: Context<Vote>) -> Result<()> {
-        let vote_account = &mut ctx.accounts.vote_account;
-        vote_account.no += 1;
+        ctx.accounts.vote_account.no += 1;
         Ok(())
     }
 }
@@ -37,10 +35,12 @@ pub struct Initialize<'info> {
 
 #[derive(Accounts)]
 pub struct Vote<'info> {
+    #[account(mut)]
     pub vote_account: Account<'info, VoteAccount>,
 }
 
 #[account]
+#[derive(Default)]
 pub struct VoteAccount {
     pub yes: u64,
     pub no: u64,

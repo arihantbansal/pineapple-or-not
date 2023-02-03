@@ -1,29 +1,29 @@
+import * as assert from "assert";
 import * as anchor from "@project-serum/anchor";
 import { Program } from "@project-serum/anchor";
 import { PineappleOrNot } from "../target/types/pineapple_or_not";
 
 describe("pineapple-or-not", () => {
-  // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
   const program = anchor.workspace.PineappleOrNot as Program<PineappleOrNot>;
 
-  const voteAccount = anchor.web3.Keypair.generate();
+  let voteAccount = anchor.web3.Keypair.generate();
 
   it("initializes with 0 votes for crunchy and smooth", async () => {
     console.log("Testing Initialize...");
     const tx = await program.methods.initialize()
       .accounts({
         voteAccount: voteAccount.publicKey,
-        user: provider.wallet.publicKey,
-        systemProgram: SystemProgram.programId,
       })
       .signers([voteAccount]).rpc();
     console.log("Tx hash: ", tx);
 
     const voteData = await program.account.voteAccount.fetch(voteAccount.publicKey);
+    console.log(voteData);
     console.log(`Yes: ${voteData.yes}`);
     console.log(`No: ${voteData.no}`);
+    assert.ok(voteData.yes == 0 && voteData.no == 0);
   });
 
   it("votes correctly for yes", async () => {
@@ -35,8 +35,10 @@ describe("pineapple-or-not", () => {
       .rpc();
 
     const voteData =  await program.account.voteAccount.fetch(voteAccount.publicKey);
+    console.log(voteData);
     console.log(`Yes: ${voteData.yes}`);
     console.log(`No: ${voteData.no}`);
+    assert.ok(voteData.yes == 1 && voteData.no == 0);
   });
 
   it("votes correctly for no", async () => {
@@ -47,8 +49,10 @@ describe("pineapple-or-not", () => {
       })
       .rpc();
 
-    const voteData = await proram.account.voteAccount.fetch(voteAccount.publicKey);
+    const voteData = await program.account.voteAccount.fetch(voteAccount.publicKey);
+    console.log(voteData);
     console.log(`Yes: ${voteData.yes}`);
     console.log(`No: ${voteData.no}`);
+    assert.ok(voteData.yes == 1 && voteData.no == 1);
   });
 });
