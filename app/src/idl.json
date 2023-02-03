@@ -1,0 +1,70 @@
+{
+  "version": "0.1.0",
+  "name": "pineapple_or_not",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "voteAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "voteYes",
+      "accounts": [
+        {
+          "name": "voteAccount",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "voteNo",
+      "accounts": [
+        {
+          "name": "voteAccount",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "VoteAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "yes",
+            "type": "u64"
+          },
+          {
+            "name": "no",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "address": "4cnMefx5UmwwW6yCJYMoLAGzQy8XVq7AQRKqFsP7aajh"
+  }
+}
